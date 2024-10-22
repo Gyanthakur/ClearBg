@@ -1,12 +1,12 @@
 import React from "react";
 import { assets } from "../assets/assets";
-import {
-	FacebookLogo,
-	GithubLogo,
-	LinkedinLogo,
-	TwitterLogo,
-	WhatsappLogo,
-} from "phosphor-react";
+// import {
+// 	FacebookLogo,
+// 	GithubLogo,
+// 	LinkedinLogo,
+// 	TwitterLogo,
+// 	WhatsappLogo,
+// } from "phosphor-react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
