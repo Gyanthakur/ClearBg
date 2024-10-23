@@ -18,6 +18,5 @@ await connectDb()
 
 // API routes
 app.get('/',(req,res) => res.send("API Working for Clear Bg"))
-app.use('/api/user',userRouter)
-
+app.use("/api/user", userRouter)
 app.listen(PORT,()=>console.log("Server Running on port " + PORT))
