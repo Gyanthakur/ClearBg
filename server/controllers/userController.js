@@ -28,9 +28,9 @@ const clerkWebhooks = async(req,res)=>{
                     photo:data.image_url,
                 }
                 await userModel.create(userData)
-                res.json({})
+                res.json({success:true,message:"User Created"})
 
-                break
+                break;
             }
             case "user.updated" : {
                 
@@ -42,15 +42,16 @@ const clerkWebhooks = async(req,res)=>{
                 }
                 await userModel.findOneAndUpdate({clerkId:data.id},userData)
                 res.json({})
-                break
+                break;
             }
             case "user.deleted" : {
                 await userModel.findOneAndDelete({clerkId:data.id})
                 res.json({})
-                break
+                break;
             }
 
             default:
+                break;
         }
 
 
