@@ -23,8 +23,8 @@ const clerkWebhooks = async (req, res) => {
 				const userData = new userModel({
 					clerkId: data.id,
 					email: data.email_addresses[0].email_address,
-					firstName: data?.first_name || "gyan",
-					lastName: data.last_name || "singh",
+					// firstName: data?.first_name || "gyan",
+					// lastName: data.last_name || "singh",
 					photo: data.image_url,
 				});
 				// const user = await userModel.create(userData)
