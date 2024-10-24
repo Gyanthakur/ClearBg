@@ -218,6 +218,9 @@ const paymentRazorpay = async(req,res) => {
 
 
 
+
+
+
 // API Controller function to verify razorpay function 
 
 const verifyRazorpay = async(req,res) => {
