@@ -15,6 +15,9 @@ import twitter_icon from './twitter_icon.svg'
 import profile_img_1 from './profile_img_1.png'
 import profile_img_2 from './profile_img_2.png'
 import credit_icon from './credit_icon.png'
+import abhishek from './abhishek.JPG'
+import shreyansh from './shreyansh.JPG'
+
 
 export const assets = {
     logo,
@@ -31,22 +34,24 @@ export const assets = {
     google_plus_icon,
     twitter_icon,
     upload_btn_icon,
-    credit_icon
+    credit_icon,
+    abhishek,
+    shreyansh
 }
 
 export const testimonialsData = [
     {
         id: 1,
         text: "I've been using bg.removal for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.",
-        author: "Richard Nelson",
-        image: profile_img_1,
+        author: "Abhishek Sherma",
+        image: abhishek,
         jobTitle:'Web Developer'
     },
     {
         id: 2,
         text: "I've been using bg.removal for nearly 6 months, I had a fantastic experience. The quality is top-notch. I recommend others to try this app.",
-        author: "Donald Jackman",
-        image: profile_img_2,
+        author: "Shreyansh Dubey",
+        image: shreyansh,
         jobTitle:'UI Deginer'
     },
 ];
