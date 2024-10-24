@@ -8,6 +8,7 @@ const Navbar = () => {
 	const {openSignIn} = useClerk();
 	const {isSignedIn, user} = useUser()
 
+
 	useEffect(()=>{
 		if(isSignedIn){
 			loadCreditsdata();
@@ -21,7 +22,7 @@ const Navbar = () => {
 			{
 				isSignedIn 
 				? <div className="flex items-center gap-2 sm:gap-3">
-					<button className="flex items-center gap-2 bg-blue-200 px-4 sm:px-4 py-1.5 sm:py-2.5 rounded-full hover:scale-105 transition-all duration-700">
+					<button onClick={()=>navigate('/buy')} className="flex items-center gap-2 bg-blue-200 px-4 sm:px-4 py-1.5 sm:py-2.5 rounded-full hover:scale-105 transition-all duration-700">
 						<img className="w-5" src={assets.credit_icon} alt="" />
 						<p className="text-xs sm:text-sm font-medium text-gray-600">Credits : {credit}</p>
 					</button>
