@@ -124,7 +124,12 @@ Ensure you have the following installed:
     ```bash
     MONGO_URI=your-mongodb-connection-string
     JWT_SECRET=your-secret-key
-    PORT=5000
+    CLERK_WEBHOOK_SECRET = YOUR_CLERK_WEBHOOK_SECRET
+    CLIPDROP_API = YOUR_CLIPDROP_API
+    RAZORPAY_KEY_ID = YOUR_RAZORPAY_KEY_ID
+    RAZORPAY_KEY_SECRET = YOUR_RAZORPAY_KEY_SECRET
+    CURRENCY = 'INR'
+
     ```
 
 3. Install dependencies and start the server:
