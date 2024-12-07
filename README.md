@@ -2,9 +2,6 @@
   <img src="https://github.com/user-attachments/assets/2e9b5b7d-b3fb-4643-82f5-0be16c2a5f45" alt="logo_BG" />
 </p>
 
-<p align="center">
-  ClearBg
-</p>
 
 ## Demo
 ![image](https://github.com/user-attachments/assets/3b03e20b-fa2a-40b8-8656-e4c77ae3492d)
