@@ -1,6 +1,6 @@
 import { Webhook } from "svix";
 import userModel from "../models/userModel.js";
-import razorpay from 'razorpay'
+import Razorpay from 'razorpay'
 import transactionModel from "../models/transactionModel.js";
 // API controller Function to manage clerk user with database
 // http://localhost:4000/api/user/webhooks
@@ -123,97 +123,177 @@ const userCredits = async (req, res) => {
 };
 
 // Gateway initialize 
-const razorpayInstance = ({
-    key_id : process.env.RAZORPAY_KAY_ID,
-    key_secret : process.env.RAZORPAY_KAY_SECRET
-})
+// const razorpayInstance = ({
+//     key_id : process.env.RAZORPAY_KEY_ID,
+//     key_secret : process.env.RAZORPAY_KEY_SECRET
+// })
 
-// API to make payments for credits
-const paymentRazorpay = async(req,res) => {
-    try {
-        console.log('body' , req.body);
-        const {clerkId, planId} = req.body;
+// // API to make payments for credits
+// const paymentRazorpay = async(req,res) => {
+//     try {
+//         console.log('body' , req.body);
+//         const {clerkId, planId} = req.body;
         
-        const userData = await userModel.findOne({clerkId:clerkId})
-        console.log('userdata',userData);
+//         const userData = await userModel.findOne({clerkId:clerkId})
+//         console.log('userdata',userData);
         
-        if(!userData || !planId){
-            console.log('user data and plan id');
+//         if(!userData || !planId){
+//             console.log('user data and plan id');
             
-            return res.json({success:false,message:"Invalid Credentials"})
-        }
-        let credits, plan, amount, date
+//             return res.json({success:false,message:"Invalid Credentials"})
+//         }
+//         let credits, plan, amount, date
 
-        console.log('going to use switch');
+//         console.log('going to use switch');
         
 
+//         switch (planId) {
+//             case "Basic":{
+//                 console.log('in basic');
+                
+//                 plan= 'Basic'
+//                 credits= 100
+//                 amount= 10
+//                 break;
+//                 }
+        
+//             case "Advanced":{
+//                 plan= 'Advanced'
+//                 credits= 500
+//                 amount= 50
+//                 break;
+//             }
+        
+//             case "Business":{
+//                 plan= 'Business'
+//                 credits= 5000
+//                 amount= 250
+//                 break;
+//             }
+        
+//             default:{
+//                 console.log('in default');
+                
+//                 break;
+
+//             }
+//         }
+
+//         date = Date.now()
+
+//         // creating transaction
+//         const transactionData = {
+//             clerkId,
+//             plan,
+//             amount,
+//             credits,
+//             date
+//         }
+
+//         console.log('going to create new transaction');
+        
+
+//         const newTransaction = await transactionModel.create(transactionData)
+
+//         const options = {
+//             amount: amount*100,
+//             currency: process.env.CURRENCY,
+//             receipt: newTransaction._id
+//         }
+
+//         await razorpayInstance.orders.create(options,(error,order)=>{
+//             if(error){
+//                 return res.json({success:false,message:error})
+//             }
+//             res.json({success:true,order})
+//         })
+
+
+//     } catch (error) {
+//         console.log(error);
+// 		res.json({ success: false, message: "error on razorpay" });
+//     }
+// }
+
+
+
+const razorpayInstance = new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
+
+const paymentRazorpay = async (req, res) => {
+    try {
+        console.log('Request body:', req.body);
+        const { clerkId, planId } = req.body;
+
+        // Check if user exists
+        const userData = await userModel.findOne({ clerkId });
+        console.log('User data:', userData);
+
+        if (!userData || !planId) {
+            console.log('Missing user data or planId');
+            return res.status(400).json({ success: false, message: 'Invalid Credentials' });
+        }
+
+        let credits, plan, amount;
+
+        console.log('Processing plan...');
         switch (planId) {
-            case "Basic":{
-                console.log('in basic');
-                
-                plan= 'Basic'
-                credits= 100
-                amount= 10
-                break;
-                }
-        
-            case "Advanced":{
-                plan= 'Basic'
-                credits= 500
-                amount= 50
+            case 'Basic': {
+                plan = 'Basic';
+                credits = 10;
+                amount = 2;
                 break;
             }
-        
-            case "Business":{
-                plan= 'Basic'
-                credits= 5000
-                amount= 250
+            case 'Advanced': {
+                plan = 'Advanced';
+                credits = 50;
+                amount = 5;
                 break;
             }
-        
-            default:{
-                console.log('in default');
-                
+            case 'Business': {
+                plan = 'Business';
+                credits = 500;
+                amount = 25;
                 break;
-
+            }
+            default: {
+                console.log('Invalid planId provided');
+                return res.status(400).json({ success: false, message: 'Invalid planId' });
             }
         }
 
-        date = Date.now()
+        const date = Date.now();
 
-        // creating transaction
+        // Create transaction
         const transactionData = {
             clerkId,
             plan,
             amount,
             credits,
-            date
-        }
+            date,
+        };
+        console.log('Creating new transaction...');
+        const newTransaction = await transactionModel.create(transactionData);
 
-        console.log('going to create new transaction');
-        
-
-        const newTransaction = await transactionModel.create(transactionData)
-
+        // Create Razorpay order
         const options = {
-            amount: amount*100,
-            currency: process.env.CURRENCY,
-            receipt: newTransaction._id
-        }
+            amount: amount * 100, // Convert to smallest currency unit
+            currency: process.env.CURRENCY || 'INR',
+            receipt: String(newTransaction._id), // Ensure it's a string
+        };
 
-        await razorpayInstance.orders.create(options,(error,order)=>{
-            if(error){
-                return res.json({success:false,message:error})
-            }
-            res.json({success:true,order})
-        })
+        console.log('Creating Razorpay order...');
+        const order = await razorpayInstance.orders.create(options);
 
-
+        // Send response
+        res.json({ success: true, order });
     } catch (error) {
-        console.log(error);
-		res.json({ success: false, message: "error on razorpay" });
+        console.error('Error occurred:', error.message || error);
+        res.status(500).json({ success: false, message: 'An internal server error occurred', error: error.message });
     }
-}
+};
 
 
 
@@ -222,6 +302,9 @@ const paymentRazorpay = async(req,res) => {
 
 
 // API Controller function to verify razorpay function 
+
+
+
 
 const verifyRazorpay = async(req,res) => {
     try {

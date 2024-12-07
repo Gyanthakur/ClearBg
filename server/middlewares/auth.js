@@ -12,7 +12,8 @@ const authUser = async (req,res, next)=>{
        const token_decode = jwt.decode(token)
        console.log(token_decode);
        
-       req.body.clerkId = 'user_2nqyPylJ84G1Xzw8XlwBDxkALeJ'
+       //    req.body.clerkId = 'user_2nqyPylJ84G1Xzw8XlwBDxkALeJ'
+       req.body.clerkId = token_decode.clerkId
        next()
     } catch (error) {
         console.log(error)

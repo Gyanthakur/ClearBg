@@ -45,9 +45,10 @@ const BuyCredit = () => {
 
   const paymentRazorPay = async (planId) =>{
     try {
-      const {token} = await getToken()
+      const token = await getToken()
       const {data} = await axios.post(backendUrl + '/api/user/pay-razor', {planId}, {headers: {token}})
-      console.log("token",token);
+      // console.log("token",token);
+      // console.log("data",data);
       
       
       if(data.success){
@@ -61,7 +62,7 @@ const BuyCredit = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.message)
+      toast.error("Razor Pay Error",error.message)
       
     }
   }
