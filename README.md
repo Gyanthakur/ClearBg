@@ -2,7 +2,14 @@
   <img src="https://github.com/user-attachments/assets/2e9b5b7d-b3fb-4643-82f5-0be16c2a5f45" alt="logo_BG" />
 </p>
 
+<p align="center">
+  ClearBg
+</p>
 
+## Demo
+![image](https://github.com/user-attachments/assets/3b03e20b-fa2a-40b8-8656-e4c77ae3492d)
+
+![image](https://github.com/user-attachments/assets/dc6b2b07-c6f7-4a5a-a636-8b56e1efa170)
 
 # Background Removal Tool
 
@@ -177,4 +184,5 @@ For any queries or suggestions, reach out at: <a href="https://wa.me/91895781859
     <img src="https://img.shields.io/badge/WhatsApp-Click%20Me-25D366?style=for-the-badge&logo=whatsapp" alt="WhatsApp" />
   </a>   
 
-![image](https://github.com/user-attachments/assets/d316eb34-92f7-4419-a281-2e5265e1576c)
+![image](https://github.com/user-attachments/assets/e8677e16-903a-461b-b68f-0da695891a82)
+
