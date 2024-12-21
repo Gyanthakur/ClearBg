@@ -21,7 +21,7 @@ const removeBgImage = async(req,res) =>{
 
         const imagePath = req.file.path;
 
-        // Reading the image file
+        // Reading the image file from readstream
         const imageFile = fs.createReadStream(imagePath)
 
 
